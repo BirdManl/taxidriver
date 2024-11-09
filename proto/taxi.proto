@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package taxi;
+
+option go_package = "D:/project_vtb/gen/taxi;taxi"; // путь до папки gen, где будут сгенерированы Go файлы
+
+service TaxiService {
+  rpc RequestTaxi(RideRequest) returns (RideResponse);
+}
+
+message RideRequest {
+  string location = 1;  // Location for taxi request
+}
+
+message RideResponse {
+  string message = 1;   // Response message from the taxi service
+}
