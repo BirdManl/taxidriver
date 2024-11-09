@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package taxi;
+
+option go_package = "D:/project_vtb/gen/taxi;taxi"; // путь до папки gen, где будут сгенерированы Go файлы
+
+// Сервис для управления автомобилями
+service VehicleService {
+  rpc GetAvailableVehicles(LocationRequest) returns (AvailableVehiclesResponse);
+  rpc UpdateVehicleStatus(VehicleStatusUpdate) returns (StatusResponse);
+}
+
+// Сообщение запроса доступных автомобилей по локации
+message LocationRequest {
+  string location = 1; // Локация для поиска доступных автомобилей
+}
+
+// Сообщение с данными доступных автомобилей
+message AvailableVehiclesResponse {
+  repeated Vehicle vehicles = 1; // Список доступных автомобилей
+}
+
+// Сообщение для обновления статуса автомобиля
+message VehicleStatusUpdate {
+  string vehicle_id = 1;  // ID автомобиля
+  string status = 2;       // Новый статус (например, "в пути", "доступен", "недоступен")
+}
+
+// Сообщение для описания автомобиля
+message Vehicle {
+  string id = 1;        // ID автомобиля
+  string model = 2;     // Модель автомобиля
+  string status = 3;    // Статус автомобиля
+}
+
+// Ответ с сообщением о статусе операции
+message StatusResponse {
+  string message = 1; // Ответ на запрос
+}

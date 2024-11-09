@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package taxi;
+
+option go_package = "D:/project_vtb/gen/taxi;taxi"; // путь до папки gen, где будут сгенерированы Go файлы
+
+// Сервис для работы с пользователями
+service UserService {
+  rpc RegisterUser(User) returns (UserResponse);
+  rpc AuthenticateUser(AuthenticationRequest) returns (AuthenticationResponse);
+  rpc GetUserProfile(UserProfileRequest) returns (UserProfile);
+  rpc UpdateUserProfile(UserProfileUpdate) returns (UserResponse);
+}
+
+// Сообщение для регистрации нового пользователя
+message User {
+  string username = 1;    // Имя пользователя
+  string password = 2;    // Пароль
+  string email = 3;       // Электронная почта
+  string phone = 4;       // Номер телефона
+}
+
+// Ответ на запросы о пользователе (регистрация, обновление профиля и т. д.)
+message UserResponse {
+  string message = 1;  // Сообщение (например, "Пользователь зарегистрирован")
+  bool success = 2;    // Успешность операции
+}
+
+// Запрос на аутентификацию
+message AuthenticationRequest {
+  string username = 1;   // Имя пользователя
+  string password = 2;   // Пароль
+}
+
+// Ответ на аутентификацию
+message AuthenticationResponse {
+  bool authenticated = 1;  // Успешность аутентификации
+  string token = 2;        // Токен для последующих запросов
+}
+
+// Запрос для получения профиля пользователя
+message UserProfileRequest {
+  string user_id = 1;  // ID пользователя
+}
+
+// Профиль пользователя
+message UserProfile {
+  string user_id = 1;   // ID пользователя
+  string username = 2;   // Имя пользователя
+  string email = 3;      // Электронная почта
+  string phone = 4;      // Номер телефона
+}
+
+// Обновление профиля пользователя
+message UserProfileUpdate {
+  string user_id = 1;   // ID пользователя
+  string email = 2;      // Электронная почта
+  string phone = 3;      // Номер телефона
+}
